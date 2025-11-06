@@ -1,4 +1,4 @@
 ---
 permalink: search-index.json
 ---
-{{ collections.searchIndex | dump | safe }}
+{{ collections.searchIndex | default([]) | dump | safe }}
