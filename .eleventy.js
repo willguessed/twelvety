@@ -104,11 +104,6 @@ module.exports = function(eleventyConfig) {
   // CONFIGURATION
   // ============================================
   
-  // Enable incremental builds in production
-  if (process.env.ELEVENTY_ENV === 'production') {
-    eleventyConfig.setIncrementalBuild(true);
-  }
-  
   return {
     dir: {
       input: "content",
