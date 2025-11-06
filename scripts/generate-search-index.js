@@ -16,6 +16,13 @@ const matter = require('gray-matter');
 const SITE_OUTPUT = '_site';
 const SEARCH_INDEX_FILE = path.join(SITE_OUTPUT, 'search-index.json');
 
+function deriveSectionFromPath(filePath) {
+  if (!filePath) return 'general';
+  const relative = filePath.replace(/^content[\\/]/, '');
+  const parts = relative.split(/[\\/]/);
+  return parts.length > 0 && parts[0] ? parts[0] : 'general';
+}
+
 function generateSearchIndex() {
   console.log('📚 Generating search index...\n');
 
@@ -26,10 +33,17 @@ function generateSearchIndex() {
   }
 
   const documents = [];
-  const contentFiles = glob.sync('content/**/*.md', { 
+  const markdownFiles = glob.sync('content/**/*.md', {
     cwd: process.cwd(),
     ignore: ['**/node_modules/**', '**/_site/**']
   });
+
+  const sectionPages = glob.sync('content/**/index.njk', {
+    cwd: process.cwd(),
+    ignore: ['**/node_modules/**', '**/_site/**', 'content/search-index.njk']
+  });
+
+  const contentFiles = Array.from(new Set([...markdownFiles, ...sectionPages]));
 
   console.log(`   Found ${contentFiles.length} content files\n`);
 
@@ -39,18 +53,34 @@ function generateSearchIndex() {
 
   contentFiles.forEach((file, index) => {
     try {
-      const content = fs.readFileSync(file, 'utf-8');
-      const { data: frontmatter, content: body } = matter(content);
+      const fileContents = fs.readFileSync(file, 'utf-8');
+      const { data: frontmatter, content: body } = matter(fileContents);
 
       // Generate URL from file path
-      const url = file
-        .replace(/^content\//, '/')
+      let url = file
+        .replace(/^content[\\/]/, '/')
         .replace(/\.md$/, '/')
-        .replace(/\/index\/$/, '/')
+        .replace(/index\.njk$/, '/')
         .replace(/\\/g, '/'); // Windows path fix
 
+      if (url.endsWith('//')) {
+        url = url.replace(/\/\//g, '/');
+      }
+      if (url !== '/' && url.endsWith('/index/')) {
+        url = url.replace(/\/index\//, '/');
+      }
+
+      const fallbackText = [
+        frontmatter.description,
+        frontmatter.summary,
+        Array.isArray(frontmatter.tags) ? frontmatter.tags.join(' ') : ''
+      ].filter(Boolean).join(' ');
+
+      const sourceText = body && body.trim().length > 0 ? body : fallbackText;
+
       // Extract text content (remove markdown syntax for better search)
-      const plainText = body
+      const plainText = (sourceText || '')
+        .toString()
         .replace(/```[\s\S]*?```/g, '') // Remove code blocks
         .replace(/`[^`]+`/g, '') // Remove inline code
         .replace(/!\[.*?\]\(.*?\)/g, '') // Remove images
@@ -60,10 +90,10 @@ function generateSearchIndex() {
 
       const doc = {
         id: file,
-        title: frontmatter.title || 'Untitled',
+        title: frontmatter.title || (frontmatter.sectionId ? frontmatter.sectionId.replace(/-/g, ' ') : 'Untitled'),
         url,
         content: plainText.slice(0, 1000), // First 1000 chars for preview
-        category: frontmatter.category || 'uncategorized',
+        category: frontmatter.category || frontmatter.sectionId || deriveSectionFromPath(file),
         tags: Array.isArray(frontmatter.tags) ? frontmatter.tags : [],
         audience: Array.isArray(frontmatter.audience) ? frontmatter.audience : [],
         dateAdded: frontmatter.dateAdded || new Date().toISOString().split('T')[0]

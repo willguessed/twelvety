@@ -36,6 +36,20 @@ module.exports = function(eleventyConfig) {
   });
 
   // ============================================
+  // COMPUTED DATA - Auto-generate URLs from sectionId
+  // ============================================
+  
+  eleventyConfig.addGlobalData('eleventyComputed', {
+    permalink: data => {
+      // If sectionId exists and no explicit permalink, auto-generate
+      if (data.sectionId && !data.permalink) {
+        return `/${data.sectionId}/`;
+      }
+      return data.permalink;
+    }
+  });
+
+  // ============================================
   // FILTERS - Utility functions for templates
   // ============================================
   
@@ -48,14 +62,11 @@ module.exports = function(eleventyConfig) {
     });
   });
 
-  // Map section IDs to collection keys (handles kebab-case to camelCase)
+  // Map section IDs to collection keys (removes hyphens)
   eleventyConfig.addFilter("sectionCollectionKey", function(sectionId) {
     if (!sectionId) return '';
-    // Add mappings for sections with hyphens
-    const map = {
-      // "section-with-hyphen": "sectionWithHyphen"
-    };
-    return map[sectionId] || sectionId;
+    // Collection keys have hyphens removed (e.g., "api-reference" → "apireference")
+    return sectionId.replace(/-/g, '');
   });
 
   // Find a section by ID
@@ -88,23 +99,39 @@ module.exports = function(eleventyConfig) {
   
   eleventyConfig.addCollection("searchIndex", function(collectionApi) {
     const allContent = [];
-    
-    // Automatically include all sections from site.json in search
-    siteData.sections.forEach(section => {
-      const items = collectionApi.getFilteredByGlob(`content/${section.id}/**/*.md`);
-      items.forEach(item => {
-        allContent.push({
-          title: item.data.title,
-          content: item.template.frontMatter.content,
-          url: item.url,
-          tags: item.data.tags || [],
-          category: item.data.category || '',
-          audience: item.data.audience || [],
-          section: section.id
-        });
+    const seenUrls = new Set();
+
+    function addItemToIndex(item, sectionId = '') {
+      if (!item || !item.url || seenUrls.has(item.url)) {
+        return;
+      }
+
+      const data = item.data || {};
+      const bodyContent = item.template && item.template.frontMatter
+        ? item.template.frontMatter.content
+        : '';
+      const fallbackText = data.description || data.summary || '';
+
+      allContent.push({
+        title: data.title || (sectionId ? sectionId.replace(/-/g, ' ') : 'Untitled'),
+        content: bodyContent && bodyContent.trim().length > 0 ? bodyContent : fallbackText,
+        url: item.url,
+        tags: Array.isArray(data.tags) ? data.tags : [],
+        category: data.category || sectionId || '',
+        audience: Array.isArray(data.audience) ? data.audience : [],
+        section: sectionId
       });
+
+      seenUrls.add(item.url);
+    }
+
+    // Automatically include all sections from site.json in search
+    // Only index markdown files; landing pages handled by search-index script
+    siteData.sections.forEach(section => {
+      const markdownItems = collectionApi.getFilteredByGlob(`content/${section.id}/**/*.md`);
+      markdownItems.forEach(item => addItemToIndex(item, section.id));
     });
-    
+
     return allContent;
   });
 
