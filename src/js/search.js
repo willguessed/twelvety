@@ -24,7 +24,16 @@
     try {
       const response = await fetch(searchIndexUrl);
       searchData = await response.json();
-      
+
+      if (!Array.isArray(searchData)) {
+        if (searchData && typeof searchData === 'object') {
+          const potentialArray = Array.isArray(searchData.items) ? searchData.items : Object.values(searchData);
+          searchData = Array.isArray(potentialArray) ? potentialArray : [];
+        } else {
+          searchData = [];
+        }
+      }
+
       // Build Lunr index
       searchIndex = lunr(function() {
         this.ref('url');
