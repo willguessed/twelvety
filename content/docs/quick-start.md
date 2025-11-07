@@ -1,11 +1,15 @@
 ---
 layout: content.njk
 title: Quick Start Guide
-category: getting-started
-tags: [introduction, setup, quickstart]
+category: docs
+description: Get up and running with Twelvety in minutes. Learn how to upload markdown, validate content, and build your first site.
+tags: [introduction, setup, quickstart, getting-started]
 audience: [developers]
 dateAdded: 2025-11-06
 lastReviewed: 2025-11-06
+reviewDue: 2026-05-06
+status: published
+order: 1
 ---
 
 # Quick Start Guide

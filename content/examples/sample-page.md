@@ -1,11 +1,14 @@
 ---
 layout: content.njk
-title: "Sample Page"
-category: "example"
-tags: ["sample", "demo", "getting-started"]
-audience: ["developers"]
-dateAdded: "2025-11-06"
-lastReviewed: "2025-11-06"
+title: Sample Page
+category: examples
+description: A sample content page demonstrating Twelvety markdown structure, formatting, and metadata best practices.
+tags: [sample, demo, getting-started, template]
+audience: [developers]
+dateAdded: 2025-11-06
+lastReviewed: 2025-11-06
+status: published
+order: 1
 ---
 
 # Sample Page

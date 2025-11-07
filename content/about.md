@@ -1,33 +1,16 @@
 ---
 layout: content.njk
-title: About
-permalink: /about/
+title: About Twelvety
+category: about
+description: Learn about Twelvety, a website-as-a-service for transforming markdown into production-ready documentation sites.
+tags: [about, service, twelvety]
+dateAdded: 2025-11-06
+lastReviewed: 2025-11-06
+status: published
 ---
 
-## About {{ site.organization }}
+## About Twelvety
 
-{{ site.description }}
+Twelvety is a website-as-a-service that turns your markdown packages into polished, production-ready documentation sites in seconds. Upload content, validate frontmatter in real time, preview changes instantly, and trigger builds without leaving the workspace.
 
-### Our Mission
-
-We are committed to providing high-quality, accessible information and resources to our community. Our goal is to empower users with knowledge and tools they need to succeed.
-
-### What We Do
-
-This site serves as a comprehensive resource hub, offering:
-
-- **Curated Content** - Carefully selected and reviewed materials
-- **Full-Text Search** - Quickly find what you're looking for
-- **Advanced Filtering** - Filter by audience, category, and more
-- **Responsive Design** - Access from any device
-
-### Our Values
-
-- **Accessibility** - Information should be available to everyone
-- **Quality** - We prioritize accuracy and relevance
-- **Community** - We're here to serve and support our users
-- **Transparency** - Clear, honest communication
-
-### Get Involved
-
-Have questions or suggestions? We'd love to hear from you. [Contact us](/contact/) to share your feedback or learn more about our work.
+Looking to bring Twelvety into your workflow? [Get in touch](/contact/) and we’ll help you launch in no time.

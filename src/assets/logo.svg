@@ -1,4 +1,27 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48">
-  <rect width="48" height="48" fill="#2563eb" rx="8"/>
-  <text x="24" y="32" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="white" text-anchor="middle">S</text>
+<svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGradient" x1="18" y1="16" x2="102" y2="104" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#7C3AED" />
+      <stop offset="30%" stop-color="#3B82F6" />
+      <stop offset="65%" stop-color="#10B981" />
+      <stop offset="100%" stop-color="#F59E0B" />
+    </linearGradient>
+    <linearGradient id="tGradient" x1="48" y1="32" x2="70" y2="98" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#F5F3FF" />
+      <stop offset="45%" stop-color="#E0E7FF" />
+      <stop offset="100%" stop-color="#D1FAE5" />
+    </linearGradient>
+    <linearGradient id="swooshGradient" x1="64" y1="86" x2="92" y2="96" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FDF2F8" />
+      <stop offset="100%" stop-color="#FDE68A" />
+    </linearGradient>
+  </defs>
+
+  <rect x="16" y="14" width="88" height="92" rx="22" fill="url(#bgGradient)" />
+
+  <g transform="translate(60 60) rotate(-12) translate(-60 -60)">
+    <rect x="54" y="28" width="16" height="60" rx="8" fill="url(#tGradient)" />
+    <rect x="40" y="42" width="44" height="14" rx="7" fill="url(#tGradient)" />
+    <path d="M60 86c4.2 4.6 11 8.5 20.5 6.2" stroke="url(#swooshGradient)" stroke-width="6" stroke-linecap="round" />
+  </g>
 </svg>

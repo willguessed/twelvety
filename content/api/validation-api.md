@@ -1,11 +1,15 @@
 ---
 layout: content.njk
 title: Validation API
-category: api-reference
-tags: [api, validation, schema]
+category: api
+description: Validate markdown content against JSON schemas in real-time. Learn how to use the Validation API for frontmatter enforcement.
+tags: [api, validation, schema, frontmatter]
 audience: [developers]
 dateAdded: 2025-11-06
 lastReviewed: 2025-11-06
+reviewDue: 2026-05-06
+status: published
+order: 1
 ---
 
 # Validation API
@@ -128,7 +132,7 @@ The default schema validates the following frontmatter fields:
 ### Required Fields
 
 - `title` (string, 1-200 characters)
-- `category` (enum: getting-started, guides, api-reference, faq, example)
+- `category` (enum: workspace, docs, examples, api)
 - `layout` (must be "content.njk")
 
 ### Optional Fields
@@ -158,6 +162,6 @@ The default schema validates the following frontmatter fields:
 
 ## See Also
 
-- [Build API](/api-reference/build-api/)
-- [Status API](/api-reference/status-api/)
-- [Schema Reference](/guides/schema-reference/)
+- [Build API](/api/build-api/)
+- [Status API](/api/status-api/)
+- [Schema Reference](/docs/schema-reference/)

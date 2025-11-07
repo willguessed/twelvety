@@ -1,0 +1,27 @@
+<svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGradient" x1="12" y1="12" x2="108" y2="108" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#7C3AED" />
+      <stop offset="35%" stop-color="#3B82F6" />
+      <stop offset="70%" stop-color="#10B981" />
+      <stop offset="100%" stop-color="#F59E0B" />
+    </linearGradient>
+    <linearGradient id="tGradient" x1="60" y1="32" x2="60" y2="96" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.95" />
+      <stop offset="100%" stop-color="#F3F4F6" stop-opacity="0.85" />
+    </linearGradient>
+    <filter id="shadow" x="12" y="12" width="96" height="100" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#1f2937" flood-opacity="0.18" />
+    </filter>
+  </defs>
+
+  <g filter="url(#shadow)">
+    <rect x="16" y="14" width="88" height="92" rx="20" fill="url(#bgGradient)" />
+  </g>
+
+  <path fill-rule="evenodd" clip-rule="evenodd"
+        d="M32 32c-4.418 0-8 3.582-8 8s3.582 8 8 8h16v40c0 8.837 7.163 16 16 16s16-7.163 16-16V48h12c4.418 0 8-3.582 8-8s-3.582-8-8-8H32z"
+        fill="url(#tGradient)" />
+
+  <path d="M40 48h12v40c0 4.418 3.582 8 8 8s8-3.582 8-8V48h20" stroke="#0F172A" stroke-opacity="0.08" stroke-width="2" stroke-linecap="round" />
+</svg>

@@ -1,7 +1,12 @@
 ---
 layout: content.njk
-title: Contact
-permalink: /contact/
+title: Contact Us
+category: about
+description: Get in touch with the Twelvety team. We'd love to hear from you and help you get started.
+tags: [contact, support, help]
+dateAdded: 2025-11-06
+lastReviewed: 2025-11-06
+status: published
 ---
 
 ## Contact Us

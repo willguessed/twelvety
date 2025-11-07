@@ -3,16 +3,17 @@ layout: base.njk
 ---
 
 <article class="content-article">
+    <div class="content-main">
     <header class="content-header">
         <div class="back-link" id="section-back-link" hidden>
             <a href="#" id="section-back-button">← Back to section</a>
         </div>
-        <h1>{{ title }}</h1>
         {% include "metadata.njk" %}
     </header>
     
     <div class="content-body">
         {{ content | safe }}
+    </div>
     </div>
     
     <aside class="content-sidebar">

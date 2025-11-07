@@ -3,9 +3,11 @@
   "version": "1.0.0",
   "description": "API-driven website-as-a-service powered by Eleventy with validation and build orchestration",
   "scripts": {
-    "dev": "eleventy --serve",
-    "build": "eleventy",
-    "build:gh": "cross-env ELEVENTY_PATH_PREFIX=/twelvety eleventy",
+    "bundle:ajv": "node scripts/build-ajv-bundle.js",
+    "prebuild": "npm run bundle:ajv",
+    "dev": "npm run bundle:ajv && eleventy --serve",
+    "build": "npm run bundle:ajv && eleventy",
+    "build:gh": "npm run bundle:ajv && cross-env ELEVENTY_PATH_PREFIX=/twelvety eleventy",
     "clean": "node -e \"require('fs').rmSync('_site', {recursive:true, force:true})\"",
     "search-index": "node scripts/generate-search-index.js",
     "validate-schema": "node scripts/validate-schema.js",
@@ -23,6 +25,7 @@
   "devDependencies": {
     "@11ty/eleventy": "^2.0.1",
     "@11ty/eleventy-plugin-syntaxhighlight": "^5.0.0",
+    "browserify": "^17.0.1",
     "cross-env": "^7.0.3"
   },
   "dependencies": {

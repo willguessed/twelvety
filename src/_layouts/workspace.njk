@@ -1,0 +1,144 @@
+---
+layout: base.njk
+---
+
+<div class="workspace-container">
+    <aside class="workspace-sidebar">
+        <div class="sidebar-header">
+            <h2>Project Files</h2>
+            <div class="sidebar-controls">
+                <button id="new-file-btn" class="btn btn-sm" title="New file">
+                    <span>➕</span> Add File
+                </button>
+                <button id="delete-file-btn" class="btn btn-sm" title="Delete file" disabled>
+                    <span>🗑️</span> Delete File
+                </button>
+                <button id="upload-btn" class="btn btn-sm btn-primary" title="Upload files">
+                    <span>📤</span> Upload
+                </button>
+                <button id="export-btn" class="btn btn-sm" title="Export project" disabled>
+                    <span>💾</span> Export
+                </button>
+            </div>
+        </div>
+        
+        <div id="file-tree" class="file-tree">
+            <div class="empty-state">
+                <p>No files loaded</p>
+                <p class="text-muted">Upload markdown files to get started</p>
+            </div>
+        </div>
+        
+    </aside>
+    
+    <main class="workspace-main">
+        <div class="workspace-tabs">
+            <button class="tab-btn active" data-tab="editor">
+                <span>✏️</span> Editor
+            </button>
+            <button class="tab-btn" data-tab="preview">
+                <span>👁️</span> Preview
+            </button>
+            <button class="tab-btn" data-tab="split">
+                <span>⚡</span> Split
+            </button>
+        </div>
+        
+        <div class="workspace-content">
+            <div id="editor-panel" class="panel active">
+                <div class="panel-header">
+                    <span id="current-file" class="file-name" title="Click to rename">No file selected</span>
+                    <div class="panel-actions">
+                        <span id="validation-status" class="status-badge"></span>
+                        <button id="save-btn" class="btn btn-sm" disabled>Save</button>
+                    </div>
+                </div>
+                <div id="editor-container" class="editor-container">
+                    <div class="empty-editor">
+                        <p>Select or create a file to start editing</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="preview-panel" class="panel">
+                <div class="panel-header">
+                    <span>Preview</span>
+                    <div class="panel-actions">
+                        <button id="refresh-preview-btn" class="btn btn-sm">
+                            <span>🔄</span> Refresh
+                        </button>
+                    </div>
+                </div>
+                <div id="preview-container" class="preview-container">
+                    <div class="preview-content"></div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <aside class="workspace-actions">
+        <div class="action-section">
+            <h3>🔍 Validation</h3>
+            <div id="validation-results" class="validation-results">
+                <p class="text-muted">No validation errors</p>
+            </div>
+            <button id="validate-all-btn" class="btn btn-block">
+                Validate All Files
+            </button>
+        </div>
+        
+        <div class="action-section">
+            <h3>🏗️ Build</h3>
+            <div id="build-status" class="build-status">
+                <p class="text-muted">Ready to build</p>
+            </div>
+            <button id="build-btn" class="btn btn-block btn-primary" disabled>
+                Build Site
+            </button>
+            <div id="build-progress" class="build-progress" hidden>
+                <div class="progress-bar">
+                    <div class="progress-fill"></div>
+                </div>
+                <p class="progress-text">Building...</p>
+            </div>
+        </div>
+        
+        <div class="action-section" id="download-section" hidden>
+            <h3>📦 Download</h3>
+            <div id="build-output" class="build-output">
+                <p>Build completed successfully!</p>
+            </div>
+            <button id="download-btn" class="btn btn-block btn-success">
+                <span>⬇️</span> Download Site
+            </button>
+            <button id="preview-site-btn" class="btn btn-block">
+                <span>🌐</span> Preview Site
+            </button>
+        </div>
+    </aside>
+</div>
+
+<!-- Hidden file input for uploads -->
+<input type="file" id="file-input" multiple accept=".md,.json" hidden>
+
+<!-- Upload modal -->
+<div id="upload-modal" class="modal" hidden>
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>Upload Files</h3>
+            <button class="modal-close">&times;</button>
+        </div>
+        <div class="modal-body">
+            <div class="upload-zone" id="upload-zone">
+                <div class="upload-icon">📤</div>
+                <p>Drag and drop files here</p>
+                <p class="text-muted">or</p>
+                <button class="btn btn-primary" id="browse-files-btn">Browse Files</button>
+                <p class="text-muted text-sm">Supports: .md, .json files</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<link rel="stylesheet" href="/css/workspace.css">
+<script type="module" src="/js/workspace/workspace.js"></script>

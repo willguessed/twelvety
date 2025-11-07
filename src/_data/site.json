@@ -1,38 +1,33 @@
 {
-  "name": "Twelvety Documentation",
+  "name": "Twelvety",
   "description": "API-driven website generation service powered by Eleventy",
   "organization": "Twelvety",
   "url": "https://twelvety.dev",
   "sections": [
     {
-      "id": "getting-started",
-      "title": "Getting Started",
-      "description": "Quick start guides and introduction",
-      "icon": "🚀"
+      "id": "workspace",
+      "title": "Workspace",
+      "description": "Create and build your markdown site",
+      "icon": "✨",
+      "primary": true
     },
     {
-      "id": "guides",
-      "title": "Guides",
-      "description": "Detailed tutorials and how-to guides",
+      "id": "docs",
+      "title": "Documentation",
+      "description": "Learn how to use Twelvety",
       "icon": "📖"
     },
     {
-      "id": "api-reference",
-      "title": "API Reference",
-      "description": "Complete API documentation",
-      "icon": "⚙️"
-    },
-    {
-      "id": "faq",
-      "title": "FAQ",
-      "description": "Frequently asked questions",
-      "icon": "❓"
-    },
-    {
-      "id": "example",
+      "id": "examples",
       "title": "Examples",
-      "description": "Example content and templates",
+      "description": "Sample projects and templates",
       "icon": "📚"
+    },
+    {
+      "id": "api",
+      "title": "API",
+      "description": "Programmatic access documentation",
+      "icon": "⚙️"
     }
   ],
   "audienceTypes": [
@@ -60,20 +55,25 @@
       },
       "category": {
         "type": "string",
-        "enum": ["getting-started", "guides", "api-reference", "faq", "example"],
-        "description": "Content section (must match a section id)"
+        "enum": ["workspace", "docs", "examples", "api", "about"],
+        "description": "Content section (must match a section id or special category)"
       },
       "layout": {
         "type": "string",
         "const": "content.njk",
         "description": "Template layout to use"
       },
+      "description": {
+        "type": "string",
+        "maxLength": 160,
+        "description": "Brief summary for SEO and preview (max 160 chars)"
+      },
       "tags": {
         "type": "array",
         "items": { "type": "string" },
         "maxItems": 10,
         "uniqueItems": true,
-        "description": "Search keywords and topics"
+        "description": "Search keywords and topics (lowercase, hyphenated)"
       },
       "audience": {
         "type": "array",
@@ -92,6 +92,35 @@
         "type": "string",
         "format": "date",
         "description": "Last review date (YYYY-MM-DD)"
+      },
+      "reviewDue": {
+        "type": "string",
+        "format": "date",
+        "description": "Next review deadline (YYYY-MM-DD)"
+      },
+      "status": {
+        "type": "string",
+        "enum": ["published", "draft", "archived"],
+        "default": "published",
+        "description": "Content lifecycle state"
+      },
+      "order": {
+        "type": "integer",
+        "minimum": 0,
+        "description": "Display order within section"
+      },
+      "parent": {
+        "type": "string",
+        "description": "Parent page slug for hierarchical content"
+      },
+      "source": {
+        "type": "string",
+        "description": "Attribution or source reference"
+      },
+      "sourceUrl": {
+        "type": "string",
+        "format": "uri",
+        "description": "URL to source material"
       },
       "webglEmbed": {
         "type": "string",
