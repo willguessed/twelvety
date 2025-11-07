@@ -25,10 +25,19 @@ jobs:
     - name: Build site
       run: npm run build:gh
 
+    - name: Prepare Pages artifact
+      run: |
+        mkdir -p pages-dist/twelvety
+        cp _site/site.json pages-dist/site.json
+        cp _site/search-index.json pages-dist/search-index.json
+        cp -r _site/* pages-dist/twelvety/
+        rm pages-dist/twelvety/site.json
+        rm pages-dist/twelvety/search-index.json
+
     - name: Upload build artifacts
       uses: actions/upload-pages-artifact@v3
       with:
-        path: _site
+        path: pages-dist
 
   deploy:
     needs: build

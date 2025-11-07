@@ -23,15 +23,22 @@
     // Load search index
     try {
       const response = await fetch(searchIndexUrl);
-      searchData = await response.json();
+      const indexData = await response.json();
 
-      if (!Array.isArray(searchData)) {
-        if (searchData && typeof searchData === 'object') {
-          const potentialArray = Array.isArray(searchData.items) ? searchData.items : Object.values(searchData);
-          searchData = Array.isArray(potentialArray) ? potentialArray : [];
+      // Handle both flat array and complex index structure
+      if (Array.isArray(indexData)) {
+        searchData = indexData;
+      } else if (indexData && typeof indexData === 'object') {
+        // Extract documents from generated index structure
+        if (Array.isArray(indexData.documents)) {
+          searchData = indexData.documents;
+        } else if (Array.isArray(indexData.items)) {
+          searchData = indexData.items;
         } else {
-          searchData = [];
+          searchData = Object.values(indexData).filter(v => Array.isArray(v))[0] || [];
         }
+      } else {
+        searchData = [];
       }
 
       // Build Lunr index
