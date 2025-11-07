@@ -8,7 +8,7 @@ permalink: /
   <h1>✨ Twelvety</h1>
   <p class="hero-description">Transform markdown into beautiful websites in seconds</p>
   <div class="hero-actions">
-    <a href="/workspace/" class="btn btn-primary btn-lg">
+    <a href="{{ '/workspace/' | url }}" class="btn btn-primary btn-lg">
       <span>🚀</span> Start Building
     </a>
     <a href="/docs/" class="btn btn-secondary btn-lg">
